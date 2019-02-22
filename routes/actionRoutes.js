@@ -13,9 +13,10 @@ const checkNewAction = (req, res, next) => {
     }
 }
 
+// POST an ACTION
 router.post('/:id', checkNewAction, async (req, res) => {
-    const action = req.body;
     const id = req.params.id;
+    const action = {...req.body, project_id: id};
     try{
         const project = await dbProjects.getProjects(id)
         if(project) {
@@ -33,4 +34,5 @@ router.post('/:id', checkNewAction, async (req, res) => {
         res.status(500).json({message: 'Sorry for the inconvenience we are working on fixing this issue. Try again later.'})
     }
 })
+
 module.exports = router;

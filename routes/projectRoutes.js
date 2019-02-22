@@ -31,10 +31,14 @@ router.post('/', checkNewProject, async (req, res) =>{
 router.get('/', async (req, res) => {
     try{
         const projects = await db.getProjects();
-        console.log(projects)
+        if(projects.length > 0){
+            res.status(200).json(projects)
+        } else{
+            res.status(404).json({message: 'Looks like there is an issue on your side... Please try again!'})
+        }    
     }
     catch(error){
-
+        res.status(500).json({message: 'Sorry for the inconvenience we are working on fixing this issue. Try again later.'})
     }
 })
 module.exports = router;
