@@ -9,17 +9,17 @@ module.exports = {
 
 function getProjects(id) {
     if(id){
-        return db('projects').where({projects_id: id}).first()
+        return db('projects').innerJoin('actions', function(){
+            this.on('projects.projects_id' ,'=', 'actions.project_id')
+       })
     }
+    return db('projects')
 
-    return db('projects').innerJoin('actions', function(){
-        this.on('projects.projects_id' ,'=', 'actions.project_id')
-    })
+    
 }
 
 function addProject(project) {
-    const newProject = {...project, project_completed: false}
-    return db('projects').insert(newProject)
+    return db('projects').insert(project)
 }
 
  

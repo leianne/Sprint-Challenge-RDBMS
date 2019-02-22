@@ -14,7 +14,8 @@ const checkNewProject = (req, res, next) => {
 
 // POST a PROJECT
 router.post('/', checkNewProject, async (req, res) =>{
-    const project = req.body
+    const project = {...req.body, project_completed: false}
+    console.log(project)
     try{
         const newProject = await db.addProject(project)
         if(newProject.length > 0){
@@ -41,4 +42,6 @@ router.get('/', async (req, res) => {
         res.status(500).json({message: 'Sorry for the inconvenience we are working on fixing this issue. Try again later.'})
     }
 })
+
+
 module.exports = router;
