@@ -7,8 +7,10 @@ module.exports = {
     addProject
 }
 
-function getProjects() {
-    return db('projects').innerJoin('actions')
+function getProjects(id) {
+    if(id){
+        return db('projects').where({projects_id: id}).first()
+    }
 }
 
 function addProject(project) {
