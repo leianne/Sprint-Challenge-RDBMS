@@ -4,7 +4,7 @@ const logger = require('morgan');
 const server = express();
 const projectsRoutes = require('./routes/projectRoutes');
 
-
+server.use(express.json())
 server.use(helmet());
 server.use(logger());
 server.use('/api/projects', projectsRoutes);
